@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+// Express a polynomial function
 // f(x) = p0 + p1*x + p2*x^2 + ... + p(n-1)*x^(n-1)
 type Polynomial struct {
 	params []float64
@@ -45,6 +46,7 @@ func (f Polynomial) GetParamters() []float64 {
 	return f.params
 }
 
-func (f *Polynomial) SetParameters(params []float64) {
+func (f *Polynomial) SetParameters(params []float64) error {
 	f.params = params
+	return nil
 }
