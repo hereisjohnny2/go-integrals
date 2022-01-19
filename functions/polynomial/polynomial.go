@@ -1,8 +1,8 @@
 package polynomial
 
 import (
+	"fmt"
 	"math"
-	"strconv"
 )
 
 // f(x) = p0 + p1*x + p2*x^2 + ... + p(n-1)*x^(n-1)
@@ -31,15 +31,18 @@ func (f Polynomial) F(x float64) float64 {
 
 func (f Polynomial) Expression() string {
 	expr := "f(x)="
+	i := 1
 	for key, elm := range f.params {
+		elmStr := fmt.Sprintf("%v", elm)
 		if key == "a" {
-			expr += strconv.FormatFloat(elm, 'E', -1, 64)
+			expr += elmStr
 		} else {
+			indexStr := fmt.Sprintf("%v", i)
 			if elm > 0 {
-				expr += "+" + strconv.FormatFloat(elm, 'E', -1, 64)
-			} else if elm < 0 {
-				expr += strconv.FormatFloat(elm, 'E', -1, 64)
+				expr += "+"
 			}
+			expr += elmStr + "x^" + indexStr
+			i++
 		}
 	}
 	return expr

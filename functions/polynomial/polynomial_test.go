@@ -40,3 +40,12 @@ func TestF(t *testing.T) {
 		t.Errorf("Expected to be %v. Got %v.", expected, y)
 	}
 }
+
+func TestExpression(t *testing.T) {
+	expr := NewPolynomial(makeMockParams()).Expression()
+	expected := "f(x)=1+2x^1+3x^2+4x^3"
+
+	if expr != expected {
+		t.Errorf("Expected to be %v. Got %v.", expected, expr)
+	}
+}
