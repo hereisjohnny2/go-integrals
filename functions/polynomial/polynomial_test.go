@@ -5,13 +5,8 @@ import (
 	"testing"
 )
 
-func makeMockParams() map[string]float64 {
-	return map[string]float64{
-		"a": 1,
-		"b": 2,
-		"c": 3,
-		"d": 4,
-	}
+func makeMockParams() []float64 {
+	return []float64{1, 2, 3, 4}
 }
 
 func TestNewPolynomial(t *testing.T) {
@@ -56,22 +51,19 @@ func TestGetParams(t *testing.T) {
 	params := NewPolynomial(makeMockParams()).GetParamters()
 	expected := makeMockParams()
 
-	if params["a"] != expected["a"] {
+	if params[0] != expected[0] {
 		t.Errorf("Expected to be %v. Got %v.", params, expected)
 	}
 }
 
 func TestSetParams(t *testing.T) {
 	poly := NewPolynomial(makeMockParams())
-	expected := map[string]float64{
-		"a": 5,
-		"b": 5,
-	}
+	expected := []float64{5, 5}
 
 	poly.SetParameters(expected)
 	params := poly.params
 
-	if params["a"] != expected["a"] && params["b"] != expected["b"] {
+	if params[0] != expected[0] && params[1] != expected[1] {
 		t.Errorf("Expected to be %v. Got %v.", params, expected)
 	}
 }
