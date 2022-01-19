@@ -17,8 +17,8 @@ func TestNewPolynomial(t *testing.T) {
 		t.Errorf("Expected params to be not null.")
 	}
 
-	for key := range params {
-		if params[key] != mockedParams[key] {
+	for key, elm := range params {
+		if elm != mockedParams[key] {
 			t.Errorf("Expected to be %v. Got %v.", mockedParams, params)
 			break
 		}
