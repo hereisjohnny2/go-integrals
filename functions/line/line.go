@@ -93,3 +93,14 @@ func (l Line) Plot(config functions.PlotConfig) {
 func (l Line) GetPoints() []Point {
 	return l.points
 }
+
+func (l Line) CalculateArea() float64 {
+	area := 0.0
+	for i := 1; i < len(l.points); i++ {
+		a := l.points[i-1].y
+		b := l.points[i].y
+		h := l.points[i].x - l.points[i-1].x
+		area += (a + b) * h / 2
+	}
+	return area
+}

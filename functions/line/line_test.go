@@ -211,3 +211,24 @@ func TestLine_GetPoints(t *testing.T) {
 		})
 	}
 }
+
+func TestLine_CalculateArea(t *testing.T) {
+	tests := []struct {
+		name string
+		l    Line
+		want float64
+	}{
+		{
+			name: "should calculate the area under a curve build by the points",
+			l:    NewLine(makeListPoint()),
+			want: 3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.l.CalculateArea(); got != tt.want {
+				t.Errorf("Line.CalculateArea() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
