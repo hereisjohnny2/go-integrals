@@ -7,15 +7,16 @@ import (
 	"github.com/hereisjohnny2/go-integrals/functions/polynomial"
 )
 
-func useInterface(f functions.Function) {
-	if err := f.SetParameters([]float64{1, 2, 3}); err != nil {
-		return
-	}
-}
-
 func main() {
-	poly := polynomial.NewPolynomial([]float64{7, 8, 9})
-	useInterface(&poly)
+	poly := polynomial.NewPolynomial([]float64{1, 2, 2, 1})
 
 	fmt.Println(poly.Expression())
+
+	functions.Plot(&poly, functions.PlotConfig{
+		XLabel:   "X",
+		YLabel:   "Y",
+		XLimits:  []float64{-10, 10},
+		YLimits:  []float64{-10, 10},
+		Filename: "polyfunc.png",
+	})
 }
