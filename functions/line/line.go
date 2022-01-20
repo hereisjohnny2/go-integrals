@@ -17,12 +17,12 @@ func NewLine(points []Point) Line {
 }
 
 func (l Line) Length() float64 {
-	len := 0.0
-	for i := range l.points[1:] {
-		len += math.Sqrt(math.Pow((l.points[i].y-l.points[i-1].y), 2) + math.Pow((l.points[i].x-l.points[i-1].x), 2))
+	length := 0.0
+	for i := 1; i < len(l.points); i++ {
+		length += math.Sqrt(math.Pow((l.points[i].y-l.points[i-1].y), 2) + math.Pow((l.points[i].x-l.points[i-1].x), 2))
 	}
 
-	return len
+	return length
 }
 
 func Load(filename string) Line {
@@ -36,9 +36,11 @@ func Load(filename string) Line {
 	points := []Point{}
 	for _, p := range ds {
 		s := strings.Split(p, "\t")
-		x, _ := strconv.ParseFloat(s[0], 64)
-		y, _ := strconv.ParseFloat(s[1], 64)
-		points = append(points, Point{x, y})
+		if len(s) == 2 {
+			x, _ := strconv.ParseFloat(s[0], 64)
+			y, _ := strconv.ParseFloat(s[1], 64)
+			points = append(points, Point{x, y})
+		}
 	}
 
 	return Line{points}
@@ -54,5 +56,7 @@ func (l Line) Save(filename string) {
 		ds += s + "\n"
 	}
 
-	ioutil.WriteFile(filename, []byte(ds), 0644)
+	if err := ioutil.WriteFile(filename, []byte(ds), 0644); err != nil {
+		panic(err)
+	}
 }
