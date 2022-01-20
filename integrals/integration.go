@@ -25,12 +25,12 @@ func NewIntegral(x0 float64, x1 float64, n int, f functions.Function) (Integral,
 // Implements the Trapezoid rule:
 //
 // Area = h[(f(a) + f(b)) / 2 + sum_{1}_{N-1}(f(x_i))]
-func (it *Integral) Trapezoidal(x0 float64, x1 float64, n int, f functions.Function) float64 {
-	h := (x1 - x0) / float64(n)
-	it.area = (f.F(x0) + f.F(x1)) / 2
+func (it *Integral) Trapezoidal() float64 {
+	h := (it.x1 - it.x0) / float64(it.n)
+	it.area = (it.f.F(it.x0) + it.f.F(it.x1)) / 2
 
-	for i := 1; i < n; i++ {
-		it.area += f.F(x0 + h*float64(i))
+	for i := 1; i < it.n; i++ {
+		it.area += it.f.F(it.x0 + h*float64(i))
 	}
 
 	return it.area * h
