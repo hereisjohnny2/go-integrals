@@ -89,3 +89,7 @@ func (l Line) Plot(config functions.PlotConfig) {
 		panic(err)
 	}
 }
+
+func (l Line) GetPoints() []Point {
+	return l.points
+}

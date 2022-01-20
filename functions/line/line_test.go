@@ -184,3 +184,30 @@ func TestLine_Plot(t *testing.T) {
 
 	os.Remove("test_plot.png")
 }
+
+func TestLine_GetPoints(t *testing.T) {
+	type fields struct {
+		points []Point
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   []Point
+	}{
+		{
+			name:   "should return the list of points",
+			fields: fields{makeListPoint()},
+			want:   makeListPoint(),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := Line{
+				points: tt.fields.points,
+			}
+			if got := l.GetPoints(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Line.GetPoints() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
