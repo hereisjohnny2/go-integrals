@@ -8,7 +8,9 @@ import (
 )
 
 func useInterface(f functions.Function) {
-	f.SetParameters([]float64{1, 2, 3})
+	if err := f.SetParameters([]float64{1, 2, 3}); err != nil {
+		return
+	}
 }
 
 func main() {
