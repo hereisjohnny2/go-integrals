@@ -8,6 +8,8 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/hereisjohnny2/go-integrals/functions"
 )
 
 func makeListPoint() []Point {
@@ -147,4 +149,38 @@ func TestLine_Save(t *testing.T) {
 	}
 
 	os.Remove("test.txt")
+}
+
+func TestLine_Plot(t *testing.T) {
+	type fields struct {
+		points []Point
+	}
+	type args struct {
+		config functions.PlotConfig
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		{
+			name:   "should save a plot image from the line data",
+			fields: fields{makeListPoint()},
+			args: args{functions.PlotConfig{
+				Filename: "test_plot.png",
+				XLabel:   "X",
+				YLabel:   "Y",
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := Line{
+				points: tt.fields.points,
+			}
+			l.Plot(tt.args.config)
+		})
+	}
+
+	os.Remove("test_plot.png")
 }

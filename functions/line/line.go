@@ -6,6 +6,12 @@ import (
 	"math"
 	"strconv"
 	"strings"
+
+	"github.com/hereisjohnny2/go-integrals/functions"
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/plotutil"
+	"gonum.org/v1/plot/vg"
 )
 
 type Line struct {
@@ -57,6 +63,29 @@ func (l Line) Save(filename string) {
 	}
 
 	if err := ioutil.WriteFile(filename, []byte(ds), 0644); err != nil {
+		panic(err)
+	}
+}
+
+func (l Line) Plot(config functions.PlotConfig) {
+	p := plot.New()
+
+	pts := make(plotter.XYs, len(l.points))
+
+	for i, point := range l.points {
+		pts[i].X = point.x
+		pts[i].Y = point.y
+	}
+
+	if err := plotutil.AddLinePoints(p, pts); err != nil {
+		panic(err)
+	}
+
+	p.Title.Text = "Plot from Data"
+	p.X.Label.Text = config.XLabel
+	p.Y.Label.Text = config.YLabel
+
+	if err := p.Save(4*vg.Inch, 4*vg.Inch, config.Filename); err != nil {
 		panic(err)
 	}
 }
